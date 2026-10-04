@@ -1,0 +1,2666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="wylotdev - independent game dev from poland. godot, game jams, weird little games.">
+<title>wylotdev :: home</title>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%231b1b1b'/%3E%3Ctext x='8' y='12.5' font-size='12' text-anchor='middle' fill='%23e8e8e4' font-family='monospace' font-weight='bold'%3EW%3C/text%3E%3C/svg%3E">
+
+<style>
+:root{
+  --bg:#000;
+  --paper:#000;
+  --ink:#fff;
+  --dim:#555;
+  --line:#555;
+  --soft:#555;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font:13px/1.55 Verdana,Geneva,sans-serif;
+  padding-bottom:48px;
+}
+
+a{
+  color:var(--ink);
+  text-decoration:underline;
+}
+
+a:hover{
+  color:var(--dim);
+}
+
+.wrap{
+  width:min(880px,96vw);
+  margin:20px auto 0;
+}
+
+
+/* ---- marquee ---- */
+
+.marquee{
+  overflow:hidden;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  white-space:nowrap;
+  font-size:11px;
+  color:var(--dim);
+  padding:5px 0;
+}
+
+.marquee-inner{
+  display:inline-block;
+  white-space:nowrap;
+  animation:scrollx 30s linear infinite;
+}
+
+@keyframes scrollx{
+  from{
+    transform:translateX(0);
+  }
+
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+
+/* ---- 88x31 buttons ---- */
+
+.b88row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  justify-content:center;
+  margin-bottom:6px;
+}
+
+.b88row:empty{
+  display:none;
+}
+
+.b88{
+  display:block;
+  width:88px;
+  height:31px;
+  line-height:0;
+  background:none;
+  border:0;
+  text-decoration:none;
+}
+
+a.b88:hover{
+  filter:brightness(1.25);
+}
+
+.b88 img{
+  display:block;
+  width:88px;
+  height:31px;
+  image-rendering:pixelated;
+}
+
+
+/* ---- section dividers ---- */
+
+.friend-divider{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:8px 0 6px;
+  color:var(--dim);
+  font-size:9px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.friend-divider::before,
+.friend-divider::after{
+  content:"";
+  flex:1;
+  border-top:1px solid var(--line);
+}
+
+.friend-divider span{
+  flex:none;
+}
+
+
+/* ---- projects ---- */
+
+.project-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  margin-bottom:10px;
+}
+
+.project-grid:empty{
+  display:none;
+}
+
+.project{
+  display:block;
+  line-height:0;
+  background:none;
+  border:0;
+  text-decoration:none;
+}
+
+.project img{
+  display:block;
+  max-width:100%;
+  height:auto;
+  image-rendering:pixelated;
+}
+
+a.project:hover{
+  filter:brightness(1.25);
+}
+
+
+/* ---- layout ---- */
+
+.cols{
+  display:grid;
+  grid-template-columns:190px 1fr;
+  gap:14px;
+  align-items:start;
+  margin-top:14px;
+}
+
+.box{
+  background:var(--paper);
+  border:1px solid var(--line);
+  margin-bottom:14px;
+}
+
+.tbar{
+  background:var(--ink);
+  color:var(--bg);
+  font-size:10px;
+  font-weight:bold;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  padding:4px 8px;
+}
+
+.bbody{
+  padding:8px;
+}
+
+.panel{
+  background:var(--paper);
+  border:1px solid var(--line);
+}
+
+.pbody{
+  padding:16px;
+}
+
+.page{
+  display:none;
+}
+
+.page.on{
+  display:block;
+}
+
+h2{
+  font-size:13px;
+  font-weight:bold;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:3px;
+  margin:18px 0 10px;
+}
+
+h2:first-child{
+  margin-top:0;
+}
+
+p{
+  margin-bottom:10px;
+}
+
+.small{
+  font-size:11px;
+  color:var(--dim);
+}
+
+
+/* ---- sidebar ---- */
+
+.nav a{
+  display:block;
+  padding:5px 8px;
+  text-decoration:none;
+  border-bottom:1px solid var(--soft);
+  font-size:12px;
+}
+
+.nav a:last-child{
+  border-bottom:0;
+}
+
+.nav a::before{
+  content:"» ";
+}
+
+.nav a:hover{
+  background:var(--soft);
+}
+
+.nav a.active{
+  background:var(--ink);
+  color:var(--bg);
+}
+
+
+/* ---- infobox devlog ---- */
+
+.log{
+  border:1px solid var(--line);
+  margin-bottom:12px;
+}
+
+.log-h{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid var(--line);
+  background:var(--soft);
+  padding:5px 8px;
+  font-size:11px;
+}
+
+.log-h b{
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.log-h .date{
+  margin-left:auto;
+  color:var(--dim);
+  font-family:"Courier New",monospace;
+}
+
+.log-b{
+  display:flex;
+}
+
+.meta{
+  flex:none;
+  width:160px;
+  border-right:1px dotted var(--soft);
+}
+
+.mrow{
+  display:flex;
+  justify-content:space-between;
+  gap:6px;
+  padding:4px 8px;
+  border-bottom:1px dotted var(--soft);
+  font-size:10px;
+}
+
+.mrow:last-child{
+  border-bottom:0;
+}
+
+.mrow b{
+  color:var(--dim);
+  font-size:9px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  padding-top:1px;
+}
+
+.mrow span{
+  text-align:right;
+}
+
+.mrow span.no{
+  font-weight:bold;
+}
+
+.log-text{
+  flex:1;
+  padding:9px 11px;
+  font-size:12px;
+}
+
+.log-text p{
+  margin-bottom:8px;
+}
+
+.log-text p:last-child{
+  margin-bottom:0;
+}
+
+
+/* ---- about ---- */
+
+.idcard{
+  display:flex;
+  gap:14px;
+  border:1px solid var(--line);
+  padding:12px;
+  flex-wrap:wrap;
+  margin-bottom:6px;
+}
+
+.photo{
+  flex:none;
+  border:1px solid var(--line);
+  padding:6px;
+  text-align:center;
+}
+
+.photo img{
+  display:block;
+  width:96px;
+  height:96px;
+  object-fit:cover;
+}
+
+.photo-cap{
+  font:8px "Courier New",monospace;
+  letter-spacing:1px;
+  color:var(--dim);
+  margin-top:5px;
+}
+
+.facts{
+  flex:1;
+  min-width:220px;
+}
+
+.sline{
+  display:flex;
+  font-size:11px;
+  padding:3px 0;
+  border-bottom:1px dotted var(--soft);
+}
+
+.sline:last-child{
+  border-bottom:0;
+}
+
+.sline b{
+  min-width:76px;
+  font-size:9px;
+  letter-spacing:1px;
+  color:var(--dim);
+  padding-top:2px;
+}
+
+.sk{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:4px 0;
+  border-bottom:1px dotted var(--soft);
+  font-size:12px;
+}
+
+.sk:last-child{
+  border-bottom:0;
+}
+
+.sk b{
+  min-width:120px;
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+.cells i{
+  display:inline-block;
+  width:13px;
+  height:10px;
+  border:1px solid var(--ink);
+  margin-right:2px;
+}
+
+.cells i.f{
+  background:var(--ink);
+}
+
+.verdict{
+  margin-left:auto;
+  color:var(--dim);
+  font-size:11px;
+  text-align:right;
+}
+
+.sk.dead .cells i{
+  border-style:dashed;
+}
+
+.sk.dead .verdict{
+  color:var(--ink);
+  font-weight:bold;
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+.hazard{
+  border:2px solid var(--ink);
+  margin-top:16px;
+}
+
+.hz-bar{
+  height:8px;
+  border-bottom:2px solid var(--ink);
+  background:repeating-linear-gradient(
+    45deg,
+    var(--ink) 0 8px,
+    transparent 8px 16px
+  );
+}
+
+.hz-body{
+  padding:10px 12px;
+  font-size:12px;
+}
+
+
+/* ---- games: camouflaged minesweeper ---- */
+
+#stage{
+  min-height:460px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px;
+  overflow:auto;
+}
+
+.mgrid{
+  display:grid;
+  width:max-content;
+  margin:0 auto;
+}
+
+.cell{
+  background:var(--paper);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font:bold 12px Verdana;
+  cursor:crosshair;
+}
+
+.cell:not(.rev):hover{
+  background:#2a2a2a;
+}
+
+.cell.rev{
+  cursor:default;
+}
+
+.cell.flag svg,
+.cell.mine-cell svg{
+  width:14px;
+  height:14px;
+  pointer-events:none;
+}
+
+.cell.boom{
+  background:var(--ink);
+}
+
+.cell.boom svg *{
+  fill:#141414 !important;
+}
+
+.cell.wrong{
+  position:relative;
+}
+
+.cell.wrong svg:last-child{
+  position:absolute;
+}
+
+.n1{color:#f5f5f2}
+.n2{color:#d9d9d6}
+.n3{color:#bdbdba}
+.n4{color:#a3a3a0}
+.n5{color:#8a8a87}
+.n6{color:#6f6f6c}
+.n7{color:#565653}
+.n8{color:#3d3d3b}
+
+
+/* ---- contact ---- */
+
+.crow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  margin-bottom:6px;
+  font-size:12px;
+}
+
+.crow b{
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+.crow.soon{
+  border:1px dashed var(--dim);
+  color:var(--dim);
+}
+
+
+/* ---- footer ---- */
+
+footer{
+  margin-top:16px;
+  text-align:center;
+}
+
+.webring{
+  font-size:11px;
+  color:var(--dim);
+  margin-bottom:8px;
+}
+
+.copyright{
+  font-size:11px;
+  color:var(--dim);
+}
+
+
+/* ---- mobile ---- */
+
+@media (max-width:760px){
+
+  .cols{
+    grid-template-columns:1fr;
+  }
+
+  .log-b{
+    flex-direction:column;
+  }
+
+  .meta{
+    width:auto;
+    border-right:0;
+    border-bottom:1px dotted var(--soft);
+    display:flex;
+    flex-wrap:wrap;
+  }
+
+  .mrow{
+    border-bottom:1px dotted var(--soft);
+  }
+
+  #stage{
+    min-height:400px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+
+  <!-- =================================================
+       88x31 BUTTONS
+  ================================================== -->
+
+  <div class="b88row" id="b88row"></div>
+
+  <div class="b88row" id="b88row2"></div>
+
+  <div class="b88row" id="b88row3"></div>
+
+
+  <!-- =================================================
+       FRIENDS
+  ================================================== -->
+
+  <div class="friend-divider">
+    <span>friends</span>
+  </div>
+
+  <div class="b88row" id="friendrow"></div>
+
+
+  <!-- =================================================
+       PROJECTS
+  ================================================== -->
+
+  <div class="friend-divider">
+    <span>projects</span>
+  </div>
+
+  <div class="project-grid" id="projectrow"></div>
+
+
+  <!-- =================================================
+       MARQUEE
+  ================================================== -->
+
+  <div class="marquee">
+    <div class="marquee-inner" id="marquee"></div>
+  </div>
+
+
+  <div class="cols">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside>
+
+      <div class="box">
+
+        <div class="tbar">
+          Navigation
+        </div>
+
+        <div class="nav bbody" style="padding:0">
+
+          <a href="#home">home</a>
+          <a href="#about">about</a>
+          <a href="#games">games</a>
+          <a href="#contact">contact</a>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =================================================
+         MAIN
+    ================================================== -->
+
+    <main>
+
+
+      <!-- =================================================
+           HOME
+      ================================================== -->
+
+      <section class="page on" id="page-home">
+
+        <div class="panel">
+
+          <div class="tbar">
+            index.html
+          </div>
+
+          <div class="pbody">
+
+            <h2>
+              Welcome
+            </h2>
+
+            <p>
+              hi. i'm <b>wylotdev</b>. this site is where i keep devlogs cuz mike has one and i need one too
+            </p>
+
+            <p class="small">
+              i make bullshit games in godot, mostly for game jams. short because im lazy fat fuck.
+            </p>
+
+
+            <h2>
+              Devlog
+            </h2>
+
+
+            <div class="log">
+
+              <div class="log-h">
+                <b>Site is online</b>
+                <span class="date">2025.11.16</span>
+              </div>
+
+              <div class="log-b">
+
+                <div class="meta">
+
+                  <div class="mrow">
+                    <b>type</b>
+                    <span>site update</span>
+                  </div>
+
+                  <div class="mrow">
+                    <b>status</b>
+                    <span>live</span>
+                  </div>
+
+                  <div class="mrow">
+                    <b>sections</b>
+                    <span>4</span>
+                  </div>
+
+                </div>
+
+                <div class="log-text">
+
+                  <p>
+                    the site is up. hi.
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="log">
+
+              <div class="log-h">
+                <b>Capabilities</b>
+                <span class="date">updated live</span>
+              </div>
+
+              <div class="log-b">
+
+                <div class="meta">
+
+                  <div class="mrow">
+                    <b>programming</b>
+                    <span>full send</span>
+                  </div>
+
+                  <div class="mrow">
+                    <b>graphic design</b>
+                    <span>yes</span>
+                  </div>
+
+                  <div class="mrow">
+                    <b>shaders</b>
+                    <span>yes</span>
+                  </div>
+
+                  <div class="mrow">
+                    <b>modelling</b>
+                    <span>slight</span>
+                  </div>
+
+                  <div class="mrow">
+                    <b>texturing</b>
+                    <span>slight</span>
+                  </div>
+
+                  <div class="mrow">
+                    <b>sound design</b>
+                    <span>eh, maybe</span>
+                  </div>
+
+                  <div class="mrow">
+                    <b>rigging</b>
+                    <span class="no">NO</span>
+                  </div>
+
+                  <div class="mrow">
+                    <b>animating</b>
+                    <span class="no">NO</span>
+                  </div>
+
+                </div>
+
+                <div class="log-text">
+
+                  <p>
+                    the full list of things i can do on a project, defo programming carries everything: gameplay, tools, ui, and whatever the fuck shaders do.
+                  </p>
+
+                  <p>
+                    modelling and texturing happen when someone cant provide. sound happens when i cant steal it. the bottom two rows are not services i offer.
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           ABOUT
+      ================================================== -->
+
+      <section class="page" id="page-about">
+
+        <div class="panel">
+
+          <div class="tbar">
+            about.html
+          </div>
+
+          <div class="pbody">
+
+            <h2>
+              Who
+            </h2>
+
+
+            <div class="idcard">
+
+              <div class="photo">
+
+                <img
+                  src="me.png"
+                  alt="me"
+                  width="96"
+                  height="96"
+                  onerror="this.parentElement.style.display='none'"
+                >
+
+                <div class="photo-cap"></div>
+
+              </div>
+
+
+              <div class="facts">
+
+                <div class="sline">
+                  <b>HANDLE</b>
+                  <span>wylotdev</span>
+                </div>
+
+                <div class="sline">
+                  <b>CLASS</b>
+                  <span>indie game dev</span>
+                </div>
+
+                <div class="sline">
+                  <b>LOCATION</b>
+                  <span>poland</span>
+                </div>
+
+                <div class="sline">
+                  <b>MAIN TOOL</b>
+                  <span>godot engine</span>
+                </div>
+
+                <div class="sline">
+                  <b>MODE</b>
+                  <span>game jams (short &amp; weird)</span>
+                </div>
+
+                <div class="sline">
+                  <b>ALIGNMENT</b>
+                  <span>shit</span>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <h2>
+              The story so far
+            </h2>
+
+            <p>
+              i make bullshit games, mostly in godot, mostly for jams, because long projects and my attention span are natural enemies. my work leans crunchy and a bit wrong: pixel heavy visuals, ugly in a good way interfaces, sounds like a factory having a bad day. inspired by the work of
+              <a href="https://mikeklubnika.itch.io" target="_blank" rel="noopener">mike klubnika</a>
+              and
+              <a href="https://wriks.itch.io" target="_blank" rel="noopener">wriks</a>,
+              i take tiny weird games very seriously.
+            </p>
+
+            <p>
+              the dream: a <b>big project with loads of developers</b>. a real team, real goal, and a shit load of screaming. until then i ship jam games on
+              <a href="https://wylotdev.itch.io" target="_blank" rel="noopener">itch.io</a>
+              steam page someday. mark my words.
+            </p>
+
+
+            <h2>
+              Skills
+            </h2>
+
+            <div id="skillz"></div>
+
+
+            <div class="hazard">
+
+              <div class="hz-bar"></div>
+
+              <div class="hz-body">
+
+                <b>!! WARNING !!</b>
+                do <b>NOT</b> ask me to rig or animate anything.
+                i can program it, shade it, design it, model it a bit, texture it a bit, and maybe even make it bark.
+                i will not rig it. <b>FUCK rigging.</b> <b>FUCK animating.</b>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           GAMES
+      ================================================== -->
+
+      <section class="page" id="page-games">
+
+        <div class="panel">
+
+          <div class="tbar">
+            games.html
+          </div>
+
+          <div id="stage"></div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           CONTACT
+      ================================================== -->
+
+      <section class="page" id="page-contact">
+
+        <div class="panel">
+
+          <div class="tbar">
+            contact.html
+          </div>
+
+          <div class="pbody">
+
+            <h2>
+              Direct lines
+            </h2>
+
+            <p class="small">
+              options below. more appearing once i stop forgetting to add them.
+            </p>
+
+
+            <div class="crow">
+
+              <b>ITCH.IO</b>
+
+              <a
+                href="https://wylotdev.itch.io/"
+                target="_blank"
+                rel="noopener"
+              >
+                wylotdev.itch.io ↗
+              </a>
+
+            </div>
+
+
+            <div class="crow">
+
+              <b>DISCORD</b>
+
+              <a
+                href="https://discord.gg/WeyabEg3fu"
+                target="_blank"
+                rel="noopener"
+              >
+                join the server ↗
+              </a>
+
+            </div>
+
+
+            <div class="crow">
+
+              <b>E-MAIL</b>
+
+              <span>
+                wylotthedev@gmail.com - feel free to message ill prolly remail back
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+    </main>
+
+  </div>
+
+
+  <!-- =================================================
+       FOOTER
+  ================================================== -->
+
+  <footer>
+
+    <div class="webring">
+
+      <a href="#" id="wr-prev">
+        « prev
+      </a>
+
+      · the unofficial wylotdev webring ·
+
+      <a href="#" id="wr-rand">
+        random
+      </a>
+
+      ·
+
+      <a href="#" id="wr-next">
+        next »
+      </a>
+
+    </div>
+
+
+    <div class="copyright">
+
+      © <span id="year"></span>
+      wylotdev · handmade html · no riggers were consulted
+
+    </div>
+
+  </footer>
+
+</div>
+
+
+<script>
+
+const $ = s =>
+  document.querySelector(s);
+
+const $$ = s =>
+  [...document.querySelectorAll(s)];
+
+
+/* =====================================================
+   NORMAL 88x31 BUTTONS
+===================================================== */
+
+const MY_BUTTONS = [
+
+  {
+    img:'buttons/discord2.gif',
+    url:'https://discord.gg/WeyabEg3fu',
+    alt:'discord'
+  },
+
+  {
+    img:'buttons/itchio.png',
+    url:'https://wylotdev.itch.io/',
+    alt:'itch.io'
+  },
+
+  {
+    img:'buttons/MadeInGodot.png',
+    url:'https://godotengine.org/',
+    alt:'made with godot'
+  },
+
+  {
+    img:'buttons/opengl.gif',
+    url:'https://www.opengl.org/',
+    alt:'opengl'
+  },
+
+  {
+    img:'buttons/winrar.jpg',
+    url:'https://www.win-rar.com/start.html?&L=0',
+    alt:'winrar'
+  },
+
+  {
+    img:'buttons/hl.gif',
+    url:'https://store.steampowered.com/app/70/HalfLife/',
+    alt:'half-life'
+  },
+
+  {
+    img:'buttons/firefox4.gif',
+    url:'https://www.firefox.com',
+    alt:'firefox'
+  },
+
+  {
+    img:'buttons/e-scp.gif',
+    url:'https://www.scpcbgame.com/',
+    alt:'scp: containment breach'
+  },
+
+  {
+    img:'buttons/blender_get.gif',
+    url:'https://www.blender.org/',
+    alt:'get blender'
+  }
+
+];
+
+
+/* =====================================================
+   NORMAL 88x31 BUTTONS #2
+===================================================== */
+
+const MY_BUTTONS_2 = [
+
+  {
+    img:'buttons/xYLEPW.png',
+    alt:''
+  },
+
+  {
+    img:'buttons/1080p.png',
+    alt:'1080p'
+  },
+
+  {
+    img:'buttons/pajaczek.gif',
+    alt:'pajaczek'
+  },
+
+  {
+    img:'buttons/3dot5mmfc-button.gif',
+    alt:'3.5" floppy'
+  },
+
+  {
+    img:'buttons/blinchik.gif',
+    alt:'blinchik'
+  },
+
+  {
+    img:'buttons/cc-some.gif',
+    alt:'cc'
+  }
+
+];
+
+
+/* =====================================================
+   NORMAL 88x31 BUTTONS #3
+===================================================== */
+
+const MY_BUTTONS_3 = [
+
+  {
+    img:'buttons/browser (2).gif',
+    alt:'browser'
+  },
+
+  {
+    img:'buttons/jonezua.gif',
+    alt:'haha'
+  },
+
+  {
+    img:'buttons/web3.gif',
+    alt:'web3'
+  },
+
+  {
+    img:'buttons/powered=cpp.gif',
+    alt:'cpp'
+  },
+
+  {
+    img:'buttons/notepad-logo3.gif',
+    alt:'notepad'
+  }
+
+];
+
+
+/* =====================================================
+   FRIENDS
+===================================================== */
+
+const FRIEND_BUTTONS = [
+
+  {
+    img:'buttons/wylot.gif',
+    url:'https://www.roblox.com/users/476194693/profile',
+    alt:'me!'
+  },
+
+  {
+    img:'buttons/jace.gif',
+    url:'https://www.roblox.com/users/1600139905/profile',
+    alt:'jace'
+  },
+
+  {
+    img:'buttons/stanislav.gif',
+    url:'https://www.roblox.com/users/1267285508/profile',
+    alt:'stan'
+  },
+
+  {
+    img:'buttons/vauk.gif',
+    url:'https://steamcommunity.com/id/Vauk/',
+    alt:'vauk'
+  },
+
+  {
+    img:'buttons/xlso23.gif',
+    url:'https://steamcommunity.com/id/xlso23',
+    alt:'xlso'
+  },
+
+  {
+    img:'buttons/winggaster.png',
+    url:'https://steamcommunity.com/id/Somerandomgirlfromoblivion',
+    alt:'xlso'
+  }
+
+];
+
+
+/* =====================================================
+   PROJECTS
+
+   Add as many projects as you want.
+
+   The project area automatically wraps into as many
+   rows as necessary.
+
+   Example:
+
+   {
+     img:'projects/mygame.png',
+     url:'https://example.com',
+     alt:'my game'
+   }
+
+===================================================== */
+
+const PROJECTS = [
+
+  {
+    img:'buttons/degame.gif',
+    url:'https://wylotdev.itch.io/de-game',
+    alt:'de_game'
+  },
+
+  {
+    img:'buttons/huh.png',
+    url:'#',
+    alt:'Something will be here in the future'
+  },
+
+  {
+    img:'buttons/huh.png',
+    url:'#',
+    alt:'Something will be here in the future'
+  },
+
+  {
+    img:'buttons/huh.png',
+    url:'#',
+    alt:'Something will be here in the future'
+  },
+
+  {
+    img:'buttons/huh.png',
+    url:'#',
+    alt:'Something will be here in the future'
+  },
+
+];
+
+
+/* =====================================================
+   88x31 BUTTON RENDERER
+===================================================== */
+
+function renderButtonList(rowId, buttons){
+
+  const row =
+    document.getElementById(rowId);
+
+  if(!row) return;
+
+
+  buttons.forEach(b => {
+
+    const el =
+      document.createElement(
+        b.url ? 'a' : 'span'
+      );
+
+
+    el.className =
+      'b88';
+
+
+    if(b.url){
+
+      el.href =
+        b.url;
+
+      el.target =
+        '_blank';
+
+      el.rel =
+        'noopener';
+
+    }
+
+
+    el.title =
+      b.alt || '';
+
+
+    const img =
+      document.createElement('img');
+
+
+    img.src =
+      b.img;
+
+    img.width =
+      88;
+
+    img.height =
+      31;
+
+    img.alt =
+      b.alt || '';
+
+
+    /*
+       If an image doesn't exist,
+       silently remove the button.
+    */
+
+    img.onerror = () => {
+
+      el.remove();
+
+      if(!row.children.length){
+
+        row.style.display =
+          'none';
+
+      }
+
+    };
+
+
+    el.appendChild(img);
+
+    row.appendChild(el);
+
+  });
+
+}
+
+
+/* =====================================================
+   PROJECT RENDERER
+===================================================== */
+
+function renderProjects(){
+
+  const row =
+    document.getElementById('projectrow');
+
+  if(!row) return;
+
+
+  PROJECTS.forEach(project => {
+
+    const el =
+      document.createElement(
+        project.url ? 'a' : 'span'
+      );
+
+
+    el.className =
+      'project';
+
+
+    if(project.url){
+
+      el.href =
+        project.url;
+
+      el.target =
+        '_blank';
+
+      el.rel =
+        'noopener';
+
+    }
+
+
+    el.title =
+      project.alt || '';
+
+
+    const img =
+      document.createElement('img');
+
+
+    img.src =
+      project.img;
+
+    img.alt =
+      project.alt || '';
+
+
+    /*
+       Missing project image?
+       Remove it instead of showing
+       a broken image.
+    */
+
+    img.onerror = () => {
+      el.remove();
+    };
+
+
+    el.appendChild(img);
+
+    row.appendChild(el);
+
+  });
+
+}
+
+
+/* =====================================================
+   MARQUEE
+===================================================== */
+
+const MQ =
+  'hi ';
+
+$('#marquee').textContent =
+  MQ + MQ;
+
+
+/* =====================================================
+   ROUTING
+===================================================== */
+
+const PAGES = [
+  'home',
+  'about',
+  'games',
+  'contact'
+];
+
+
+function currentPage(){
+
+  return (
+    location.hash.replace('#','') ||
+    'home'
+  );
+
+}
+
+
+function route(){
+
+  let p =
+    currentPage();
+
+
+  if(!PAGES.includes(p)){
+    p = 'home';
+  }
+
+
+  $$('.page').forEach(
+    s => s.classList.remove('on')
+  );
+
+
+  $('#page-' + p)
+    .classList.add('on');
+
+
+  $$('.nav a').forEach(a => {
+
+    a.classList.toggle(
+      'active',
+      a.getAttribute('href') === '#' + p
+    );
+
+  });
+
+
+  document.title =
+    'wylotdev :: ' + p;
+
+
+  if(p === 'games'){
+    initGames();
+  }
+
+
+  window.scrollTo({
+    top:0
+  });
+
+}
+
+
+addEventListener(
+  'hashchange',
+  route
+);
+
+
+/* =====================================================
+   WEBRING
+===================================================== */
+
+function ringHref(off){
+
+  const i =
+    PAGES.indexOf(
+      currentPage()
+    );
+
+
+  return '#' +
+    PAGES[
+      (i + off + PAGES.length) %
+      PAGES.length
+    ];
+
+}
+
+
+function refreshRing(){
+
+  $('#wr-prev').href =
+    ringHref(-1);
+
+  $('#wr-next').href =
+    ringHref(1);
+
+}
+
+
+$('#wr-rand').addEventListener(
+  'click',
+  e => {
+
+    e.preventDefault();
+
+
+    const others =
+      PAGES.filter(
+        p => p !== currentPage()
+      );
+
+
+    location.hash =
+      others[
+        (Math.random() *
+          others.length) | 0
+      ];
+
+  }
+);
+
+
+refreshRing();
+
+addEventListener(
+  'hashchange',
+  refreshRing
+);
+
+
+/* =====================================================
+   SKILLS
+===================================================== */
+
+const SKILLS = [
+
+  [
+    'PROGRAMMING',
+    9,
+    'certified'
+  ],
+
+  [
+    'SHADERS',
+    7,
+    'dangerous enough'
+  ],
+
+  [
+    'GRAPHIC DESIGN',
+    7,
+    'dangerous enough'
+  ],
+
+  [
+    'SOUND DESIGN',
+    4,
+    'eh, maybe'
+  ],
+
+  [
+    '3D MODELLING',
+    3,
+    'slight'
+  ],
+
+  [
+    'TEXTURING',
+    3,
+    'slight'
+  ]
+
+];
+
+
+SKILLS.forEach(
+  ([name,v,verdict]) => {
+
+    const row =
+      document.createElement('div');
+
+
+    row.className =
+      'sk';
+
+
+    row.innerHTML = `
+
+      <b>${name}</b>
+
+      <span class="cells">
+
+        ${
+          Array.from(
+            {length:10},
+            (_,i) =>
+              `<i class="${i < v ? 'f' : ''}"></i>`
+          ).join('')
+        }
+
+      </span>
+
+      <span class="verdict">
+        ${verdict}
+      </span>
+
+    `;
+
+
+    $('#skillz')
+      .appendChild(row);
+
+  }
+);
+
+
+[
+  ['RIGGING'],
+  ['ANIMATING']
+].forEach(
+  ([name]) => {
+
+    const row =
+      document.createElement('div');
+
+
+    row.className =
+      'sk dead';
+
+
+    row.innerHTML = `
+
+      <b>${name}</b>
+
+      <span class="cells">
+
+        ${
+          Array.from(
+            {length:10},
+            () => '<i></i>'
+          ).join('')
+        }
+
+      </span>
+
+      <span class="verdict">
+        ABSOLUTELY NOT.
+      </span>
+
+    `;
+
+
+    $('#skillz')
+      .appendChild(row);
+
+  }
+);
+
+
+/* =====================================================
+   GAMES.HTML — CAMOUFLAGED MINESWEEPER
+===================================================== */
+
+const MS = {
+
+  cols:0,
+  rows:0,
+  mines:0,
+  cell:24,
+  cells:[],
+  els:[],
+  state:'ready',
+  revealed:0,
+  flags:0,
+  built:false
+
+};
+
+
+const stage =
+  $('#stage');
+
+
+const msGrid =
+  document.createElement('div');
+
+
+msGrid.className =
+  'mgrid';
+
+
+stage.appendChild(
+  msGrid
+);
+
+
+const FLAG_SVG =
+  '<svg viewBox="0 0 16 16">' +
+    '<rect x="7.2" y="2" width="1.6" height="11" fill="#8d8d8d"/>' +
+    '<path d="M7.2 2 L2.6 4.8 L7.2 7.6 Z" fill="#8d8d8d"/>' +
+    '<rect x="4" y="13" width="8" height="2" fill="#8d8d8d"/>' +
+  '</svg>';
+
+
+const MINE_SVG =
+  '<svg viewBox="0 0 16 16">' +
+    '<rect x="7.2" y="1" width="1.6" height="14" fill="#e8e8e4"/>' +
+    '<rect x="1" y="7.2" width="14" height="1.6" fill="#e8e8e4"/>' +
+    '<rect x="3" y="3" width="10" height="10" fill="#e8e8e4" transform="rotate(45 8 8)"/>' +
+    '<circle cx="8" cy="8" r="4.4" fill="#e8e8e4"/>' +
+    '<circle cx="6.4" cy="6.4" r="1.2" fill="#141414"/>' +
+  '</svg>';
+
+
+const WRONG_SVG =
+  '<svg viewBox="0 0 16 16">' +
+    '<path d="M2.5 2.5 L13.5 13.5 M13.5 2.5 L2.5 13.5" stroke="#e8e8e4" stroke-width="2.4"/>' +
+  '</svg>';
+
+
+function neighbors(i){
+
+  const out = [];
+
+
+  const r =
+    (i / MS.cols) | 0;
+
+
+  const c =
+    i % MS.cols;
+
+
+  for(
+    let dr = -1;
+    dr <= 1;
+    dr++
+  ){
+
+    for(
+      let dc = -1;
+      dc <= 1;
+      dc++
+    ){
+
+      if(!dr && !dc)
+        continue;
+
+
+      const nr =
+        r + dr;
+
+      const nc =
+        c + dc;
+
+
+      if(
+        nr >= 0 &&
+        nr < MS.rows &&
+        nc >= 0 &&
+        nc < MS.cols
+      ){
+
+        out.push(
+          nr * MS.cols + nc
+        );
+
+      }
+
+    }
+
+  }
+
+
+  return out;
+
+}
+
+
+function initGames(){
+
+  if(MS.built)
+    return;
+
+
+  MS.built =
+    true;
+
+
+  const w =
+    (stage.clientWidth || 600) - 24;
+
+
+  const h =
+    (stage.clientHeight || 460) - 24;
+
+
+  MS.cell =
+    w < 470
+      ? 21
+      : 24;
+
+
+  MS.cols =
+    Math.max(
+      9,
+      Math.min(
+        24,
+        Math.floor(
+          w / MS.cell
+        )
+      )
+    );
+
+
+  MS.rows =
+    Math.max(
+      9,
+      Math.min(
+        16,
+        Math.floor(
+          h / MS.cell
+        )
+      )
+    );
+
+
+  MS.mines =
+    Math.max(
+      10,
+      Math.min(
+        99,
+        Math.round(
+          MS.cols *
+          MS.rows *
+          .145
+        )
+      )
+    );
+
+
+  msGrid.style.gridTemplateColumns =
+    'repeat(' +
+    MS.cols +
+    ', ' +
+    MS.cell +
+    'px)';
+
+
+  msGrid.style.gridAutoRows =
+    MS.cell + 'px';
+
+
+  msGrid.addEventListener(
+    'click',
+    e => {
+
+      const el =
+        e.target.closest('.cell');
+
+
+      if(!el)
+        return;
+
+
+      if(
+        MS.state === 'won' ||
+        MS.state === 'lost'
+      ){
+
+        newGame();
+
+        return;
+
+      }
+
+
+      const i =
+        +el.dataset.i;
+
+
+      const c =
+        MS.cells[i];
+
+
+      if(c.f)
+        return;
+
+
+      if(c.r)
+        chord(i);
+      else
+        revealAt(i);
+
+    }
+  );
+
+
+  msGrid.addEventListener(
+    'contextmenu',
+    e => {
+
+      e.preventDefault();
+
+
+      const el =
+        e.target.closest('.cell');
+
+
+      if(!el)
+        return;
+
+
+      flagAt(
+        +el.dataset.i
+      );
+
+    }
+  );
+
+
+  let tT = null;
+
+
+  msGrid.addEventListener(
+    'touchstart',
+    e => {
+
+      const c =
+        e.target.closest('.cell');
+
+
+      if(!c)
+        return;
+
+
+      tT =
+        setTimeout(
+          () =>
+            flagAt(
+              +c.dataset.i
+            ),
+          420
+        );
+
+    },
+    {
+      passive:true
+    }
+  );
+
+
+  msGrid.addEventListener(
+    'touchmove',
+    () =>
+      clearTimeout(tT),
+    {
+      passive:true
+    }
+  );
+
+
+  msGrid.addEventListener(
+    'touchend',
+    () =>
+      clearTimeout(tT),
+    {
+      passive:true
+    }
+  );
+
+
+  newGame();
+
+}
+
+
+function newGame(){
+
+  MS.state =
+    'ready';
+
+  MS.revealed =
+    0;
+
+  MS.flags =
+    0;
+
+
+  MS.cells =
+    Array.from(
+      {
+        length:
+          MS.cols *
+          MS.rows
+      },
+      () => ({
+        m:false,
+        a:0,
+        r:false,
+        f:false
+      })
+    );
+
+
+  MS.els = [];
+
+
+  msGrid.innerHTML =
+    '';
+
+
+  const frag =
+    document.createDocumentFragment();
+
+
+  for(
+    let i = 0;
+    i < MS.cells.length;
+    i++
+  ){
+
+    const d =
+      document.createElement(
+        'div'
+      );
+
+
+    d.className =
+      'cell';
+
+
+    d.dataset.i =
+      i;
+
+
+    frag.appendChild(d);
+
+
+    MS.els.push(d);
+
+  }
+
+
+  msGrid.appendChild(
+    frag
+  );
+
+}
+
+
+function placeMines(safe){
+
+  const banned =
+    new Set([
+      safe,
+      ...neighbors(safe)
+    ]);
+
+
+  let pool = [];
+
+
+  for(
+    let i = 0;
+    i < MS.cells.length;
+    i++
+  ){
+
+    if(
+      !banned.has(i)
+    ){
+
+      pool.push(i);
+
+    }
+
+  }
+
+
+  if(
+    pool.length <
+    MS.mines
+  ){
+
+    pool = [];
+
+
+    for(
+      let i = 0;
+      i < MS.cells.length;
+      i++
+    ){
+
+      if(i !== safe){
+        pool.push(i);
+      }
+
+    }
+
+  }
+
+
+  for(
+    let i = pool.length - 1;
+    i > 0;
+    i--
+  ){
+
+    const j =
+      (Math.random() *
+        (i + 1)) | 0;
+
+
+    [
+      pool[i],
+      pool[j]
+    ] =
+    [
+      pool[j],
+      pool[i]
+    ];
+
+  }
+
+
+  for(
+    let k = 0;
+    k < MS.mines;
+    k++
+  ){
+
+    MS.cells[
+      pool[k]
+    ].m = true;
+
+  }
+
+
+  MS.cells.forEach(
+    (c,i) => {
+
+      c.a =
+        neighbors(i)
+          .filter(
+            n =>
+              MS.cells[n].m
+          )
+          .length;
+
+    }
+  );
+
+}
+
+
+function flagAt(i){
+
+  if(
+    MS.state === 'won' ||
+    MS.state === 'lost'
+  ){
+
+    return;
+
+  }
+
+
+  const c =
+    MS.cells[i];
+
+
+  if(c.r)
+    return;
+
+
+  c.f =
+    !c.f;
+
+
+  MS.flags +=
+    c.f
+      ? 1
+      : -1;
+
+
+  MS.els[i].innerHTML =
+    c.f
+      ? FLAG_SVG
+      : '';
+
+
+  MS.els[i]
+    .classList.toggle(
+      'flag',
+      c.f
+    );
+
+}
+
+
+function revealAt(i){
+
+  if(
+    MS.state === 'ready'
+  ){
+
+    placeMines(i);
+
+    MS.state =
+      'play';
+
+  }
+
+
+  const c =
+    MS.cells[i];
+
+
+  if(c.m){
+
+    boom(i);
+
+    return;
+
+  }
+
+
+  flood(i);
+
+  checkWin();
+
+}
+
+
+function flood(start){
+
+  const stack =
+    [start];
+
+
+  while(
+    stack.length
+  ){
+
+    const i =
+      stack.pop();
+
+
+    const c =
+      MS.cells[i];
+
+
+    if(
+      c.r ||
+      c.f
+    ){
+
+      continue;
+
+    }
+
+
+    c.r =
+      true;
+
+
+    MS.revealed++;
+
+
+    const el =
+      MS.els[i];
+
+
+    el.classList.add(
+      'rev'
+    );
+
+
+    if(
+      c.a > 0
+    ){
+
+      el.textContent =
+        c.a;
+
+
+      el.classList.add(
+        'n' + c.a
+      );
+
+    }else{
+
+      neighbors(i).forEach(
+        n => {
+
+          if(
+            !MS.cells[n].r &&
+            !MS.cells[n].f &&
+            !MS.cells[n].m
+          ){
+
+            stack.push(n);
+
+          }
+
+        }
+      );
+
+    }
+
+  }
+
+}
+
+
+function chord(i){
+
+  const c =
+    MS.cells[i];
+
+
+  if(
+    c.a === 0
+  ){
+
+    return;
+
+  }
+
+
+  const nb =
+    neighbors(i);
+
+
+  if(
+    nb.filter(
+      n =>
+        MS.cells[n].f
+    ).length !== c.a
+  ){
+
+    return;
+
+  }
+
+
+  for(
+    const n of nb
+  ){
+
+    const cn =
+      MS.cells[n];
+
+
+    if(
+      cn.r ||
+      cn.f
+    ){
+
+      continue;
+
+    }
+
+
+    if(
+      cn.m
+    ){
+
+      boom(n);
+
+      return;
+
+    }
+
+
+    flood(n);
+
+  }
+
+
+  checkWin();
+
+}
+
+
+function boom(i){
+
+  MS.state =
+    'lost';
+
+
+  MS.cells.forEach(
+    (c,k) => {
+
+      if(
+        c.m &&
+        !c.f
+      ){
+
+        MS.els[k]
+          .classList.add(
+            'rev',
+            'mine-cell'
+          );
+
+
+        MS.els[k].innerHTML =
+          MINE_SVG;
+
+      }
+
+
+      if(
+        !c.m &&
+        c.f
+      ){
+
+        MS.els[k]
+          .classList.add(
+            'wrong'
+          );
+
+
+        MS.els[k]
+          .insertAdjacentHTML(
+            'beforeend',
+            WRONG_SVG
+          );
+
+      }
+
+    }
+  );
+
+
+  MS.els[i]
+    .classList.add(
+      'boom'
+    );
+
+}
+
+
+function checkWin(){
+
+  if(
+    MS.revealed !==
+    MS.cols *
+      MS.rows -
+      MS.mines
+  ){
+
+    return;
+
+  }
+
+
+  MS.state =
+    'won';
+
+
+  MS.cells.forEach(
+    (c,k) => {
+
+      if(
+        c.m &&
+        !c.f
+      ){
+
+        c.f =
+          true;
+
+
+        MS.els[k].innerHTML =
+          FLAG_SVG;
+
+
+        MS.els[k]
+          .classList.add(
+            'flag'
+          );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   START EVERYTHING
+===================================================== */
+
+$('#year').textContent =
+  new Date().getFullYear();
+
+
+/* normal buttons */
+renderButtonList(
+  'b88row',
+  MY_BUTTONS
+);
+
+
+/* normal buttons #2 */
+renderButtonList(
+  'b88row2',
+  MY_BUTTONS_2
+);
+
+
+/* normal buttons #3 */
+renderButtonList(
+  'b88row3',
+  MY_BUTTONS_3
+);
+
+
+/* friends */
+renderButtonList(
+  'friendrow',
+  FRIEND_BUTTONS
+);
+
+
+/* projects */
+renderProjects();
+
+
+/* routing */
+route();
+
+</script>
+
+</body>
+</html>
